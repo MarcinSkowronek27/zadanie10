@@ -50,8 +50,11 @@ class App extends React.Component {
       args: [...this.state.args, elem],
     })
   }
+
   render() {
     console.log(this.state);
+    let test = document.querySelector('#logic0').value;
+    console.log(test);
     return (
       <div className="app">
         <div className="app-board">
@@ -62,8 +65,8 @@ class App extends React.Component {
                 onChange={(e) => this.handleChangeName(e, item.id)}
                 value={this.state.args[index].arg}
               />
-              <select onChange={(e) => {
-                // this.handleChange(e);
+              <select name="logic" id={`logic${index}`} onChange={(e) => {
+                this.handleChange(e);
                 this.handleChangeLog(e, item.id);
               }}>
                 {this.props.options.map((arrayItem, index) => (
@@ -78,6 +81,7 @@ class App extends React.Component {
         <button onClick={e => {
           e.preventDefault();
           let id = randomID(4);
+          console.log(e.target.value);
           this.handleAddVar({ id: id, arg: this.state.variableName, logVar: this.state.selectedValue });
         }} >+ add arg</button>
         <div className="result">Result</div>
