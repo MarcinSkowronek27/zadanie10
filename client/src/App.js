@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// const randomID = require('@marcin_lark30/randomid-generator');
+const randomID = require('@marcin_lark30/randomid-generator');
 
 
 class App extends React.Component {
@@ -10,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       args: [
-        { arg: "MyArg", logVar: "true" }
+        { id: '4fe4', arg: "MyArg", logVar: "true" }
       ],
       selectedValue: "",
       variableName: ""
@@ -21,8 +21,25 @@ class App extends React.Component {
     const handleChange = (e) => {
       this.setState({ selectedValue: e.target.value });
     };
-    const handleChangeName = (e, index) => {
-      this.setState({ variableName: e.target.value });
+    const handleChangeName = (e, id) => {
+      // let index = this.state.args.find(item => item.id === id);
+      // console.log(index);
+      // console.log(e.target.value);
+      // console.log(id);
+
+      const newObj = this.state.args.map(obj => {
+        if ([id].includes(obj.id)) {
+          return {...obj, arg: e.target.value}
+        }
+        return obj
+      })
+      console.log(newObj);
+      // this.setState({args: [newObj]})
+      // let check = this.state.args.splice(id,1,e.target.value);
+      // console.log(check);
+      // this.setState({args: [check, ...this.state.args]
+      // })
+      this.setState({ args: newObj });
     };
     const handleAddVar = (elem) => {
       this.setState({
@@ -34,11 +51,11 @@ class App extends React.Component {
       <div className="app">
         <div className="app-board">
           {this.state.args.map((item, index) => (
-            <div key={index}>
+            <div key={item.id}>
               <input
                 autoComplete="off"
-                onChange={(e, index) => handleChangeName(e, index)}
-                value={this.state.variableName}
+                onChange={(e) => handleChangeName(e, item.id)}
+                value={this.state.args[index].arg}
               />
               <select onChange={(e) => handleChange(e)}>
                 {this.props.options.map((arrayItem, index) => (
@@ -51,9 +68,10 @@ class App extends React.Component {
           ))}
         </div>
         <button onClick={e => {
-            e.preventDefault();
-            handleAddVar({arg: this.state.variableName, logVar: this.state.selectedValue});
-          }} >+ add arg</button>
+          e.preventDefault();
+          let id = randomID(4);
+          handleAddVar({ id: id, arg: this.state.variableName, logVar: this.state.selectedValue });
+        }} >+ add arg</button>
         <div className="result">Result</div>
       </div>
     );
