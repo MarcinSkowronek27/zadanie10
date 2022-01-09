@@ -52,9 +52,35 @@ class App extends React.Component {
   }
 
   render() {
+
     console.log(this.state);
-    let test = document.querySelector('#logic0').value;
-    console.log(test);
+    let c = 'true';
+    const tes = this.state.args.map(item => {
+      const newArr = [];
+      newArr.push(item.logVar);
+      newArr.map(item => {
+        if (item == c) {
+          c = 'true';
+        } else {
+          c = 'false'
+        };
+        return c;
+      });
+      console.log(c);
+      return c;
+    });
+    console.log(tes);
+    let A = true;
+    let B = true;
+    let D = false;
+    let Coma = A && B && D + '';
+    console.log(Coma);
+    let t = document.querySelector('.selectVar').value;
+    console.log(t);
+    let x = this.state.args.map(item => {
+      if (item.arg == t) return item.logVar;
+      return '';
+    })
     return (
       <div className="app">
         <div className="app-board">
@@ -66,6 +92,7 @@ class App extends React.Component {
                 value={this.state.args[index].arg}
               />
               <select name="logic" id={`logic${index}`} onChange={(e) => {
+                // document.querySelector()
                 this.handleChange(e);
                 this.handleChangeLog(e, item.id);
               }}>
@@ -82,9 +109,19 @@ class App extends React.Component {
           e.preventDefault();
           let id = randomID(4);
           console.log(e.target.value);
-          this.handleAddVar({ id: id, arg: this.state.variableName, logVar: this.state.selectedValue });
+          this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
-        <div className="result">Result</div>
+        <div className="divSelectVar">
+          <select className="selectVar">
+          <option key={0} value='Select...' disabled="disabled">Select...</option>
+            {this.state.args.map((item, index) => (
+            <option key={index+1} value={item.arg}>
+              {item.arg}
+            </option>
+          ))}
+          </select><button>x</button>
+          <div className="result">Result {x}</div>
+        </div>
       </div>
     );
   }

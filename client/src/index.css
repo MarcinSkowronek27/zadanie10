@@ -73,3 +73,7 @@ p {
   align-items: center;
   border-bottom: 1px dashed rgb(83, 83, 83);
 }
+
+.app .divSelectVar {
+  margin-top: 20px;
+}
