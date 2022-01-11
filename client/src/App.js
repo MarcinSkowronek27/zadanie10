@@ -12,8 +12,9 @@ class App extends React.Component {
       args: [
         { id: '4fe4', arg: "MyArg", logVar: "true" }
       ],
-      selectedValue: "",
-      variableName: ""
+      selectedValue: "true",
+      variableName: "",
+      inputText: "MyArg"
     };
   }
 
@@ -70,16 +71,11 @@ class App extends React.Component {
       return c;
     });
     console.log(tes);
-    let A = true;
-    let B = true;
-    let D = false;
-    let Coma = A && B && D + '';
-    console.log(Coma);
-    let t = document.querySelector('.selectVar').value;
-    console.log(t);
     let x = this.state.args.map(item => {
-      if (item.arg == t) return item.logVar;
-      return '';
+      let z = '';
+      if (this.state.args.length == 1) return this.state.args[0].logVar;
+      else if (item.arg == this.state.inputText) return z = item.logVar;
+      else return z;
     })
     return (
       <div className="app">
@@ -112,8 +108,8 @@ class App extends React.Component {
           this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
         <div className="divSelectVar">
-          <select className="selectVar">
-          <option key={0} value='Select...' disabled="disabled">Select...</option>
+          <select className="selectVar" onChange={(e) => this.setState({ inputText: e.target.value })}>
+          <option key={0} value='' disabled="disabled">Select...</option>
             {this.state.args.map((item, index) => (
             <option key={index+1} value={item.arg}>
               {item.arg}
