@@ -56,26 +56,26 @@ class App extends React.Component {
   render() {
 
     console.log(this.state);
-    let c = 'true';
-    const tes = this.state.args.map(item => {
-      const newArr = [];
-      newArr.push(item.logVar);
-      newArr.map(item => {
-        if (item == c) {
-          c = 'true';
-        } else {
-          c = 'false'
-        };
-        return c;
-      });
-      console.log(c);
-      return c;
-    });
-    console.log(tes);
+    // let c = 'true';
+    // const tes = this.state.args.map(item => {
+    //   const newArr = [];
+    //   newArr.push(item.logVar);
+    //   newArr.map(item => { // eslint-disable-next-line
+    //     if (item === c) {
+    //       c = 'true';
+    //     } else {
+    //       c = 'false'
+    //     };
+    //     return c;
+    //   });
+    //   // console.log(c);
+    //   return c;
+    // });
+    // console.log(tes);
     let x = this.state.args.map(item => {
-      let z = '';
-      if (this.state.args.length == 1) return this.state.args[0].logVar;
-      else if (item.arg == this.state.inputText) return z = item.logVar;
+      let z = ''; // eslint-disable-next-line
+      if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
+      else if (item.arg == this.state.inputText) return z = item.logVar; 
       else return z;
     })
     return (
