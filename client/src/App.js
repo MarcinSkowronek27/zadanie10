@@ -14,7 +14,8 @@ class App extends React.Component {
       ],
       selectedValue: "true",
       variableName: "",
-      inputText: "MyArg"
+      inputText: "MyArg",
+      selectOption: ''
     };
   }
 
@@ -109,13 +110,13 @@ class App extends React.Component {
         }} >+ add arg</button>
         <div className="divSelectVar">
           <select className="selectVar" onChange={(e) => this.setState({ inputText: e.target.value })}>
-          <option key={0} value='' disabled="disabled">Select...</option>
+          <option key={0} value='' disabled="disabled" selected={this.state.selectOption}>Select...</option>
             {this.state.args.map((item, index) => (
-            <option key={index+1} value={item.arg}>
+            <option key={index+1} value={item.arg} >
               {item.arg}
             </option>
           ))}
-          </select><button>x</button>
+          </select><button onClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}>x</button>
           <div className="result">Result {x}</div>
         </div>
       </div>
