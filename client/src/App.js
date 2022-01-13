@@ -14,8 +14,9 @@ class App extends React.Component {
       ],
       selectedValue: "true",
       variableName: "",
-      inputText: "MyArg",
-      selectOption: ''
+      inputText: "",
+      selectOption: '',
+      x: 'undefined'
     };
   }
 
@@ -53,6 +54,38 @@ class App extends React.Component {
     })
   }
 
+  // handleX = () => {
+
+  //   if (this.state.inputText !== 'Select...') {
+  //     if (this.state.inputText == 'true') {
+  //       this.setState({ x: 'true' })
+  //     }
+  //     if (this.state.inputText == 'false') {
+  //       this.setState({ x: 'false' })
+  //     }
+  //   }
+  //   else this.setState({x: 'undefined'});
+  //   console.log(this.state);
+  // this.setState({x: 'faglse'});
+
+  // if (this.state.inputText !== 'Select...') {
+  //   let z = '';
+  //   this.state.args.map(item => {
+  //     console.log('działa');
+  //     if (item.arg == this.state.inputText) return z = item.logVar;
+  //     else if (this.state.inputText == 'true') return 'true';
+  //     else if (this.state.inputText == 'false') return 'false';
+  //     return 'bcv'
+  //   })
+  //   return this.setState({x: z});
+  // }
+  // let z = 'dupa'; // eslint-disable-next-line
+  // if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
+  // else if (item.arg == this.state.inputText) return z = item.logVar;
+  // else if (this.state.inputText == 'true') return z = 'undefined';
+  // else return z;
+  // }
+
   render() {
 
     console.log(this.state);
@@ -72,14 +105,31 @@ class App extends React.Component {
     //   return c;
     // });
     // console.log(tes);
-    let x = this.state.args.map(item => {
-      let z = ''; // eslint-disable-next-line
-      if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
-      else if (item.arg == this.state.inputText) return z = item.logVar; 
-      else return z;
-    })
+    // tutaj to w miarę działa
+    // let x = () => {
+    //   if (this.state.inputText !== 'Select...') {
+    //     this.state.args.map(item => {
+    //       console.log('działa');
+    //       if (item.arg == this.state.inputText) return item.logVar;
+    // else if (this.state.inputText == 'true') return 'true';
+    // else if (this.state.inputText == 'false') return 'false';
+    // return 'bcv'
+    //   })
+    // }
+    // else return 'undefinbved';
+    // }
+    //dotąd działa w górę
+    let x = 
+      this.state.args.map(item => {
+        let z = ''; // eslint-disable-next-line
+        if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
+        else if (item.arg == this.state.inputText) return z = item.logVar;
+        else if (this.state.inputText == 'true') return z = 'undefined';
+        else return z;
+      })
+    console.log(x);
     return (
-      <div className="app">
+      <div className="app" >
         <div className="app-board">
           {this.state.args.map((item, index) => (
             <div key={item.id}>
@@ -109,13 +159,28 @@ class App extends React.Component {
           this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
         <div className="divSelectVar">
-          <select className="selectVar" onChange={(e) => this.setState({ inputText: e.target.value })}>
-          <option key={0} value='' disabled="disabled" selected={this.state.selectOption}>Select...</option>
-            {this.state.args.map((item, index) => (
-            <option key={index+1} value={item.arg} >
-              {item.arg}
-            </option>
-          ))}
+          <select className="selectVar" defaultValue='Select...' onChange={(e) => {
+            this.setState({ inputText: e.target.value })
+            // this.handleX();
+          }}>
+            <option key={0} value=''
+            // selected={this.state.selectOption}
+            >Select...</option>
+            <optgroup id='argument' label='argument'>
+              <option key={1} value='true' >
+                true
+              </option>
+              <option key={2} value='false' >
+                false
+              </option>
+            </optgroup>
+            <optgroup id='constant' label='constant'>
+              {this.state.args.map((item, index) => (
+                <option key={index + 1} value={item.arg} >
+                  {item.arg}
+                </option>
+              ))}
+            </optgroup>
           </select><button onClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}>x</button>
           <div className="result">Result {x}</div>
         </div>
