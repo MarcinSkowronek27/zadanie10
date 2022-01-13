@@ -119,15 +119,20 @@ class App extends React.Component {
     // else return 'undefinbved';
     // }
     //dotąd działa w górę
-    let x = 
-      this.state.args.map(item => {
-        let z = ''; // eslint-disable-next-line
-        if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
-        else if (item.arg == this.state.inputText) return z = item.logVar;
-        else if (this.state.inputText == 'true') return z = 'undefined';
-        else return z;
+    let x = () => {
+      let z = '';
+      if (this.state.inputText == 'Select...' || this.state.inputText == '') return z = 'undefined';
+      if (this.state.inputText == 'true') return z = 'true';
+      if (this.state.inputText == 'false') return z = 'false';
+      else this.state.args.map(item => {
+      //   // if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
+        if (item.arg == this.state.inputText) return z = item.logVar; // eslint-disable-next-line
+      //   else if (this.state.inputText == 'true') return z = 'undefined';
       })
-    console.log(x);
+      return z;
+      // })
+    }
+    console.log(x());
     return (
       <div className="app" >
         <div className="app-board">
@@ -182,7 +187,7 @@ class App extends React.Component {
               ))}
             </optgroup>
           </select><button onClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}>x</button>
-          <div className="result">Result {x}</div>
+          <div className="result">Result {x()}</div>
         </div>
       </div>
     );
