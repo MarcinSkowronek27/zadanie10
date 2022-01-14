@@ -16,7 +16,7 @@ class App extends React.Component {
       variableName: "",
       inputText: "",
       selectOption: '',
-      x: 'undefined'
+      logicOperator: ''
     };
   }
 
@@ -105,7 +105,7 @@ class App extends React.Component {
     //   return c;
     // });
     // console.log(tes);
-    // tutaj to w miarę działa
+
     // let x = () => {
     //   if (this.state.inputText !== 'Select...') {
     //     this.state.args.map(item => {
@@ -118,16 +118,15 @@ class App extends React.Component {
     // }
     // else return 'undefinbved';
     // }
-    //dotąd działa w górę
     let x = () => {
-      let z = '';
-      if (this.state.inputText == 'Select...' || this.state.inputText == '') return z = 'undefined';
-      if (this.state.inputText == 'true') return z = 'true';
+      let z = '';// eslint-disable-next-line
+      if (this.state.inputText == 'Select...' || this.state.inputText == '') return z = 'undefined';// eslint-disable-next-line
+      if (this.state.inputText == 'true') return z = 'true';// eslint-disable-next-line
       if (this.state.inputText == 'false') return z = 'false';
       else this.state.args.map(item => {
-      //   // if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
+        // eslint-disable-next-line
         if (item.arg == this.state.inputText) return z = item.logVar; // eslint-disable-next-line
-      //   else if (this.state.inputText == 'true') return z = 'undefined';
+        return z;
       })
       return z;
       // })
@@ -165,7 +164,7 @@ class App extends React.Component {
         }} >+ add arg</button>
         <div className="divSelectVar">
           <select className="selectVar" defaultValue='Select...' onChange={(e) => {
-            this.setState({ inputText: e.target.value })
+            this.setState({ inputText: e.target.value, logicOperator: e.target.value })
             // this.handleX();
           }}>
             <option key={0} value=''
@@ -186,10 +185,87 @@ class App extends React.Component {
                 </option>
               ))}
             </optgroup>
+            <option key={100} value='and' >
+              and
+            </option>
+            <option key={101} value='or' >
+              or
+            </option>
           </select><button onClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}>x</button>
+          {this.state.logicOperator === 'and' || this.state.logicOperator === 'or' ? (
+            <div className="divSelectVar2">
+              <div className="selectVar2">
+                <select defaultValue='Select...' onChange={(e) => {
+                  // if(e.target.value == 'and') {
+                  //   this.setState({})
+                  // }
+                  this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
+                  // this.handleX();
+                }}>
+                  <option key={0} value=''
+                  // selected={this.state.selectOption}
+                  >Select...</option>
+                  <optgroup id='argument' label='argument'>
+                    <option key={1} value='true' >
+                      true
+                    </option>
+                    <option key={2} value='false' >
+                      false
+                    </option>
+                  </optgroup>
+                  <optgroup id='constant' label='constant'>
+                    {this.state.args.map((item, index) => (
+                      <option key={index + 1} value={item.arg} >
+                        {item.arg}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <option key={100} value='and' >
+                    and
+                  </option>
+                  <option key={101} value='or' >
+                    or
+                  </option>
+                </select><button onClick={(e) => this.setState({ selectOption1: 'selected', inputText1: 'Select...' })}>x</button>
+              </div>
+              <div className="selectVar2">
+                <select defaultValue='Select...' onChange={(e) => {
+                  this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
+                  // this.handleX();
+                }}>
+                  <option key={0} value=''
+                  // selected={this.state.selectOption}
+                  >Select...</option>
+                  <optgroup id='argument' label='argument'>
+                    <option key={1} value='true' >
+                      true
+                    </option>
+                    <option key={2} value='false' >
+                      false
+                    </option>
+                  </optgroup>
+                  <optgroup id='constant' label='constant'>
+                    {this.state.args.map((item, index) => (
+                      <option key={index + 1} value={item.arg} >
+                        {item.arg}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <option key={100} value='and' >
+                    and
+                  </option>
+                  <option key={101} value='or' >
+                    or
+                  </option>
+                </select><button onClick={(e) => this.setState({ selectOption1: 'selected', inputText1: 'Select...' })}>x</button>
+              </div>
+              <button>+ add op</button>
+            </div>
+          )
+            : ''}
           <div className="result">Result {x()}</div>
         </div>
-      </div>
+      </div >
     );
   }
 }

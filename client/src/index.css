@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
 body {
   background: #282c34;
   color: #fff;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 30px;
   text-align: center;
 }
@@ -27,12 +27,12 @@ p {
   margin: 20px 10px;
   text-transform: uppercase;
   outline: none;
-  transition: .2s;
+  transition: 0.2s;
   cursor: pointer;
 }
 
 .btn:hover {
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .btn--red {
@@ -48,13 +48,12 @@ p {
   font-family: inherit;
   outline: none;
   opacity: 0.6;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .text-input:focus {
   opacity: 1;
 }
-
 
 .tasks-section {
   margin-bottom: 100px;
@@ -76,4 +75,8 @@ p {
 
 .app .divSelectVar {
   margin-top: 20px;
+}
+
+.app .divSelectVar2 {
+  margin-left: 40px;
 }
