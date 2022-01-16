@@ -1,32 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Component = ({item, index, state}) => {
+const Component = ({item, state, value, handleChangeNam}) => {
 
-  state = {
-    args: [
-      { id: '4fe4', arg: "MyArg", logVar: "true" }
-    ]
-  }
+  // const handleChangeName = (e, id) => {
 
-  const handleChangeName = (e, id) => {
-
-    const newArray = this.state.args.map(array => {
-      if ([id].includes(array.id)) {
-        return { ...array, arg: e.target.value }
-      }
-      return array
-    })
-    console.log(newArray);
-    this.setState({ args : newArray });
-  };
+  //   const newArray = state.args.map(array => {
+  //     if ([id].includes(array.id)) {
+  //       return { ...array, arg: e.target.value }
+  //     }
+  //     return array
+  //   })
+  //   console.log(newArray);
+  //   // this.setState({ args : newArray });
+  //   console.log('działa');
+  // };
 
   return (
     <div>
       <input
         autoComplete="off"
-        onChange={(e) => handleChangeName(e, item.id)}
-        value={index}
+        onChange={(e) => handleChangeNam(e)}
+        value={value}
       />
     </div>
   )
@@ -40,6 +35,6 @@ Component.propTypes = {
 };
 
 export {
-  Component as Select,
+  Component as SelectComponent,
 }
 

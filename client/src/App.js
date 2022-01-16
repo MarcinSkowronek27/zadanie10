@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Select } from './Select';
+import { SelectComponent } from './Select';
 const randomID = require('@marcin_lark30/randomid-generator');
+
+
+class Select extends React.Component {
+  render() {
+    return (
+<div></div>
+    );
+  }
+}
+
 
 
 class App extends React.Component {
@@ -59,38 +69,6 @@ class App extends React.Component {
     })
   }
 
-  // handleX = () => {
-
-  //   if (this.state.inputText !== 'Select...') {
-  //     if (this.state.inputText == 'true') {
-  //       this.setState({ x: 'true' })
-  //     }
-  //     if (this.state.inputText == 'false') {
-  //       this.setState({ x: 'false' })
-  //     }
-  //   }
-  //   else this.setState({x: 'undefined'});
-  //   console.log(this.state);
-  // this.setState({x: 'faglse'});
-
-  // if (this.state.inputText !== 'Select...') {
-  //   let z = '';
-  //   this.state.args.map(item => {
-  //     console.log('działa');
-  //     if (item.arg == this.state.inputText) return z = item.logVar;
-  //     else if (this.state.inputText == 'true') return 'true';
-  //     else if (this.state.inputText == 'false') return 'false';
-  //     return 'bcv'
-  //   })
-  //   return this.setState({x: z});
-  // }
-  // let z = 'dupa'; // eslint-disable-next-line
-  // if (this.state.args.length == 1) return this.state.args[0].logVar; // eslint-disable-next-line
-  // else if (item.arg == this.state.inputText) return z = item.logVar;
-  // else if (this.state.inputText == 'true') return z = 'undefined';
-  // else return z;
-  // }
-
   render() {
 
     console.log(this.state);
@@ -141,25 +119,25 @@ class App extends React.Component {
       <div className="app" >
         <div className="app-board">
           {this.state.args.map((item, index) => (
-            <div key={item.id}>
-              {/* <Select index={index} state={this.state.args} item={item}/> */}
-              <input
-                autoComplete="off"
-                onChange={(e) => this.handleChangeName(e, item.id)}
-                value={this.state.args[index].arg}
-              />
-              <select name="logic" id={`logic${index}`} onChange={(e) => {
-                // document.querySelector()
-                this.handleChange(e);
-                this.handleChangeLog(e, item.id);
-              }}>
-                {this.props.options.map((arrayItem, index) => (
-                  <option key={index} value={arrayItem}>
-                    {arrayItem}
-                  </option>
-                ))}
-              </select>
-            </div>
+            // <div key={item.id}>
+            <SelectComponent state={this.state} handleChangeNam={(e) => this.handleChangeName(e, item.id)} item={item} key={item.id} value={this.state.args[index].arg} {...item} />
+            // {/* <input
+            //   autoComplete="off"
+            //   onChange={(e) => this.handleChangeName(e, item.id)}
+            //   value={this.state.args[index].arg}
+            // />
+            // <select name="logic" id={`logic${index}`} onChange={(e) => {
+            //   // document.querySelector()
+            //   this.handleChange(e);
+            //   this.handleChangeLog(e, item.id);
+            // }}>
+            //   {this.props.options.map((arrayItem, index) => (
+            //     <option key={index} value={arrayItem}>
+            //       {arrayItem}
+            //     </option>
+            //   ))}
+            // </select> */}
+            // {/* </div> */}
           ))}
         </div>
         <button onClick={e => {
@@ -238,8 +216,9 @@ class App extends React.Component {
                 </div>
               ))}
               < button onClick={e => this.setState({
-                argsTwo: [...this.state.argsTwo, {id: randomID(4)}]})
-            }> + add op</button>
+                argsTwo: [...this.state.argsTwo, { id: randomID(4) }]
+              })
+              }> + add op</button>
             </div>
             // {<div className="selectVar2">
             //    <select defaultValue='Select...' onChange={(e) => {
