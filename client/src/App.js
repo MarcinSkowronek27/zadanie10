@@ -118,23 +118,6 @@ class App extends React.Component {
             item={item}
             value={this.state.args[index].arg} 
             {...item} />
-            // {/* <input
-            //   autoComplete="off"
-            //   onChange={(e) => this.handleChangeName(e, item.id)}
-            //   value={this.state.args[index].arg}
-            // />
-            // <select name="logic" id={`logic${index}`} onChange={(e) => {
-            //   // document.querySelector()
-            //   this.handleChange(e);
-            //   this.handleChangeLog(e, item.id);
-            // }}>
-            //   {this.props.options.map((arrayItem, index) => (
-            //     <option key={index} value={arrayItem}>
-            //       {arrayItem}
-            //     </option>
-            //   ))}
-            // </select> */}
-            // {/* </div> */}
           ))}
         </div>
         <button onClick={e => {

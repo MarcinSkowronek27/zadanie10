@@ -29,6 +29,10 @@ const Component = ({ index, value, options, handleChangeName, handleChange, hand
 Component.propTypes = {
   value: PropTypes.node,
   index: PropTypes.string,
+  options: PropTypes.array,
+  handleChangeName: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleChangeLog: PropTypes.func,
 };
 
 export {
