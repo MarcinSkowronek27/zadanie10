@@ -1,37 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Component = ({item, state, value, handleChangeNam}) => {
+const Component = ({ index, value, options, handleChangeName, handleChange, handleChangeLog }) => {
 
-  // const handleChangeName = (e, id) => {
-
-  //   const newArray = state.args.map(array => {
-  //     if ([id].includes(array.id)) {
-  //       return { ...array, arg: e.target.value }
-  //     }
-  //     return array
-  //   })
-  //   console.log(newArray);
-  //   // this.setState({ args : newArray });
-  //   console.log('działa');
-  // };
 
   return (
     <div>
       <input
         autoComplete="off"
-        onChange={(e) => handleChangeNam(e)}
+        onChange={(e) => handleChangeName(e)}
         value={value}
       />
+      <select name="logic" id={`logic${index}`} onChange={(e) => {
+        handleChange(e);
+        handleChangeLog(e);
+      }}>
+        {options.map((arrayItem, index) => (
+          <option key={index} value={arrayItem}>
+            {arrayItem}
+          </option>
+        ))}
+      </select>
     </div>
   )
 
 };
 
 Component.propTypes = {
-  item: PropTypes.node,
-  index: PropTypes.node,
-  state: PropTypes.node
+  value: PropTypes.node,
+  index: PropTypes.string,
 };
 
 export {

@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import { SelectComponent } from './Select';
 const randomID = require('@marcin_lark30/randomid-generator');
 
-
-class Select extends React.Component {
-  render() {
-    return (
-<div></div>
-    );
-  }
-}
-
-
-
 class App extends React.Component {
 
 
@@ -120,7 +109,15 @@ class App extends React.Component {
         <div className="app-board">
           {this.state.args.map((item, index) => (
             // <div key={item.id}>
-            <SelectComponent state={this.state} handleChangeNam={(e) => this.handleChangeName(e, item.id)} item={item} key={item.id} value={this.state.args[index].arg} {...item} />
+            <SelectComponent key={item.id}
+            state={this.state} 
+            options={this.props.options} 
+            handleChangeName={(e) => this.handleChangeName(e, item.id)} 
+            handleChange={(e)=> this.handleChange(e)}
+            handleChangeLog={(e) => this.handleChangeLog(e, item.id)}
+            item={item}
+            value={this.state.args[index].arg} 
+            {...item} />
             // {/* <input
             //   autoComplete="off"
             //   onChange={(e) => this.handleChangeName(e, item.id)}
