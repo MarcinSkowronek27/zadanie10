@@ -36,7 +36,7 @@ const Component = ({ state, handleClick, handleChange, inputText }) => {
 };
 
 Component.propTypes = {
-  state: PropTypes.array,
+  state: PropTypes.object,
   inputText: PropTypes.string,
   handleChange: PropTypes.func,
   handleChangeLog: PropTypes.func,

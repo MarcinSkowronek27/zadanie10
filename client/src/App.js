@@ -41,6 +41,18 @@ class App extends React.Component {
     this.setState({ args: newArray });
   };
 
+  handleChangeNameTwo = (e, id) => {
+
+    const newArray = this.state.argsTwo.map(array => {
+      if ([id].includes(array.id)) {
+        return { ...array, arg: e.target.value }
+      }
+      return array
+    })
+    console.log(newArray);
+    this.setState({ argsTwo: newArray });
+  };
+
   handleChangeLog = (e, id) => {
 
     const newArray = this.state.args.map(array => {
@@ -105,7 +117,7 @@ class App extends React.Component {
     return (
       <div className="app" >
         <div className="app-board">
-          {this.state.args.map((item, index) => (
+          {this.state.args.map((item, index, args) => (
             <Argument key={item.id}
             state={this.state} 
             options={this.props.options} 
@@ -131,9 +143,11 @@ class App extends React.Component {
           {this.state.logicOperator === 'and' || this.state.logicOperator === 'or' ? (
             <div className="divSelectVar2">
               {this.state.argsTwo.map(itemTwo => (
-                <Select key={itemTwo.id} inputText={this.state.inputText} state={this.state} handleChange={(e) => {
-                  this.setState({ inputText: e.target.value, logicOperator: e.target.value })
-                }} handleClick={e => this.removeSelect(itemTwo.id) }/>
+                <Select key={itemTwo.id} inputText={this.state.logicOperator1} state={this.state} handleChange={(e) => this.handleChangeNameTwo(e, itemTwo.id)}
+                //   (e) => {
+                //   this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
+                // }} 
+                handleClick={e => this.removeSelect(itemTwo.id) }/>
               ))}
               < button onClick={e => this.setState({
                 argsTwo: [...this.state.argsTwo, { id: randomID(4) }]
