@@ -80,3 +80,7 @@ p {
 .app .divSelectVar2 {
   margin-left: 40px;
 }
+
+.app .divSelectVar2 .divSelectVar {
+  margin-top: 0;
+}

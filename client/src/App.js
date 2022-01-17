@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SelectComponent } from './Select';
+import { Argument } from './Argument';
+import { Select } from './Select';
 const randomID = require('@marcin_lark30/randomid-generator');
 
 class App extends React.Component {
@@ -58,6 +59,16 @@ class App extends React.Component {
     })
   }
 
+  removeSelect = (id) => {
+    // console.log('kliknięte id:', id);
+    let filteredArray = this.state.argsTwo.filter(item => item.id !== id);
+    // console.log('wynik testu:', filteredArray);
+
+    this.setState({
+      argsTwo: filteredArray,
+    }, () => { console.log('wartość tablicy OK:', this.state.tasks) });
+  }
+
   render() {
 
     console.log(this.state);
@@ -78,18 +89,6 @@ class App extends React.Component {
     // });
     // console.log(tes);
 
-    // let x = () => {
-    //   if (this.state.inputText !== 'Select...') {
-    //     this.state.args.map(item => {
-    //       console.log('działa');
-    //       if (item.arg == this.state.inputText) return item.logVar;
-    // else if (this.state.inputText == 'true') return 'true';
-    // else if (this.state.inputText == 'false') return 'false';
-    // return 'bcv'
-    //   })
-    // }
-    // else return 'undefinbved';
-    // }
     let x = () => {
       let z = '';// eslint-disable-next-line
       if (this.state.inputText == 'Select...' || this.state.inputText == '') return z = 'undefined';// eslint-disable-next-line
@@ -101,15 +100,13 @@ class App extends React.Component {
         return z;
       })
       return z;
-      // })
     }
     // console.log(x());
     return (
       <div className="app" >
         <div className="app-board">
           {this.state.args.map((item, index) => (
-            // <div key={item.id}>
-            <SelectComponent key={item.id}
+            <Argument key={item.id}
             state={this.state} 
             options={this.props.options} 
             handleChangeName={(e) => this.handleChangeName(e, item.id)} 
@@ -126,152 +123,28 @@ class App extends React.Component {
           console.log(e.target.value);
           this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
-        <div className="divSelectVar">
-          <select className="selectVar" value={this.state.inputText} onChange={(e) => {
-            // if (e.target.value == 'and') {
-            //   this.setState({
-            //     argsTwo: [...this.state.argsTwo]
-            // })}
+        {/* <div className="divSelectVar"> */}
+          <Select inputText={this.state.inputText} state={this.state} handleChange={(e) => {
             this.setState({ inputText: e.target.value, logicOperator: e.target.value })
-            // this.handleX();
-          }}>
-            <option key={0} value=''
-            // selected={this.state.selectOption}
-            >Select...</option>
-            <optgroup id='argument' label='argument'>
-              <option key={1} value='true' >
-                true
-              </option>
-              <option key={2} value='false' >
-                false
-              </option>
-            </optgroup>
-            <optgroup id='constant' label='constant'>
-              {this.state.args.map((item, index) => (
-                <option key={index + 1} value={item.arg} >
-                  {item.arg}
-                </option>
-              ))}
-            </optgroup>
-            <option key={100} value='and' >
-              and
-            </option>
-            <option key={101} value='or' >
-              or
-            </option>
-          </select><button onClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}>x</button>
+          }} handleClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}/>
+
           {this.state.logicOperator === 'and' || this.state.logicOperator === 'or' ? (
-            <div>
+            <div className="divSelectVar2">
               {this.state.argsTwo.map(itemTwo => (
-                <div key={itemTwo.id} className="divSelectVar2">
-                  <select defaultValue='Select...' onChange={(e) => {
-                    this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
-                    // this.handleX();
-                  }}>
-                    <option key={0} value=''
-                    // selected={this.state.selectOption}
-                    >Select...</option>
-                    <optgroup id='argument' label='argument'>
-                      <option key={1} value='true' >
-                        true
-                      </option>
-                      <option key={2} value='false' >
-                        false
-                      </option>
-                    </optgroup>
-                    <optgroup id='constant' label='constant'>
-                      {this.state.args.map((item, index) => (
-                        <option key={index + 1} value={item.arg} >
-                          {item.arg}
-                        </option>
-                      ))}
-                    </optgroup>
-                    <option key={100} value='and' >
-                      and
-                    </option>
-                    <option key={101} value='or' >
-                      or
-                    </option>
-                  </select><button onClick={(e) => this.setState({ selectOption1: 'selected', inputText1: 'Select...' })}>x</button>
-                </div>
+                <Select key={itemTwo.id} inputText={this.state.inputText} state={this.state} handleChange={(e) => {
+                  this.setState({ inputText: e.target.value, logicOperator: e.target.value })
+                }} handleClick={e => this.removeSelect(itemTwo.id) }/>
               ))}
               < button onClick={e => this.setState({
                 argsTwo: [...this.state.argsTwo, { id: randomID(4) }]
               })
               }> + add op</button>
             </div>
-            // {<div className="selectVar2">
-            //    <select defaultValue='Select...' onChange={(e) => {
-            //       // if(e.target.value == 'and') {
-            //       //   this.setState({ })
-            //       // }
-            //       this.setState({inputText1: e.target.value, logicOperator1: e.target.value })
-            //       // this.handleX();
-            //     }}>
-            //       <option key={0} value=''
-            //       // selected={this.state.selectOption}
-            //       >Select...</option>
-            //       <optgroup id='argument' label='argument'>
-            //         <option key={1} value='true' >
-            //           true
-            //         </option>
-            //         <option key={2} value='false' >
-            //           false
-            //         </option>
-            //       </optgroup>
-            //       <optgroup id='constant' label='constant'>
-            //         {this.state.args.map((item, index) => (
-            //           <option key={index + 1} value={item.arg} >
-            //             {item.arg}
-            //           </option>
-            //         ))}
-            //       </optgroup>
-            //       <option key={100} value='and' >
-            //         and
-            //       </option>
-            //       <option key={101} value='or' >
-            //         or
-            //       </option>
-            //     </select><button onClick={(e) => this.setState({ selectOption1: 'selected', inputText1: 'Select...' })}>x</button>
-            //   </div>
-            //   <div className="selectVar2">
-            //     <select defaultValue='Select...' onChange={(e) => {
-            //       this.setState({inputText1: e.target.value, logicOperator1: e.target.value })
-            //       // this.handleX();
-            //     }}>
-            //       <option key={0} value=''
-            //       // selected={this.state.selectOption}
-            //       >Select...</option>
-            //       <optgroup id='argument' label='argument'>
-            //         <option key={1} value='true' >
-            //           true
-            //         </option>
-            //         <option key={2} value='false' >
-            //           false
-            //         </option>
-            //       </optgroup>
-            //       <optgroup id='constant' label='constant'>
-            //         {this.state.args.map((item, index) => (
-            //           <option key={index + 1} value={item.arg} >
-            //             {item.arg}
-            //           </option>
-            //         ))}
-            //       </optgroup>
-            //       <option key={100} value='and' >
-            //         and
-            //       </option>
-            //       <option key={101} value='or' >
-            //         or
-            //       </option>
-            //     </select><button onClick={(e) => this.setState({ selectOption1: 'selected', inputText1: 'Select...' })}>x</button>
-            //   </div>
-            //   <button>+ add op</button>
-            // </div >
           )
             : ''
           }
           <div className="result">Result {x()}</div>
-        </div >
+        {/* </div > */}
       </div >
     );
   }

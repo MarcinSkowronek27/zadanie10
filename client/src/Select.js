@@ -1,41 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Component = ({ index, value, options, handleChangeName, handleChange, handleChangeLog }) => {
-
+const Component = ({ state, handleClick, handleChange, inputText }) => {
 
   return (
-    <div>
-      <input
-        autoComplete="off"
-        onChange={(e) => handleChangeName(e)}
-        value={value}
-      />
-      <select name="logic" id={`logic${index}`} onChange={(e) => {
-        handleChange(e);
-        handleChangeLog(e);
-      }}>
-        {options.map((arrayItem, index) => (
-          <option key={index} value={arrayItem}>
-            {arrayItem}
-          </option>
-        ))}
-      </select>
+    <div className='divSelectVar'>
+      <select className="selectVar" value={inputText} onChange={e => handleChange(e)}>
+            <option key={0} value=''
+            >Select...</option>
+            <optgroup id='argument' label='argument'>
+              <option key={1} value='true' >
+                true
+              </option>
+              <option key={2} value='false' >
+                false
+              </option>
+            </optgroup>
+            <optgroup id='constant' label='constant'>
+              {state.args.map((item, index) => (
+                <option key={index + 1} value={item.arg} >
+                  {item.arg}
+                </option>
+              ))}
+            </optgroup>
+            <option key={100} value='and' >
+              and
+            </option>
+            <option key={101} value='or' >
+              or
+            </option>
+          </select><button onClick={(e) => handleClick(e)}>x</button>
     </div>
   )
 
 };
 
 Component.propTypes = {
-  value: PropTypes.node,
-  index: PropTypes.string,
-  options: PropTypes.array,
-  handleChangeName: PropTypes.func,
+  state: PropTypes.array,
+  inputText: PropTypes.string,
   handleChange: PropTypes.func,
   handleChangeLog: PropTypes.func,
 };
 
 export {
-  Component as SelectComponent,
+  Component as Select,
 }
 
