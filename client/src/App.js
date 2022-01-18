@@ -43,26 +43,37 @@ class App extends React.Component {
 
   handleChangeNameTwo = (e, id) => {
 
+    let firstArg = this.state.args.find(array => array.arg === e.target.value);
+    // console.log('check', firstArg.logVar);
     const newArray = this.state.argsTwo.map(array => {
       if ([id].includes(array.id)) {
-        return { ...array, arg: e.target.value }
+        return { ...array, arg: e.target.value, logVar: firstArg.logVar }
       }
       return array
     })
-    console.log(newArray);
+    // console.log(newArray);
     this.setState({ argsTwo: newArray });
   };
 
-  handleChangeLog = (e, id) => {
-
+  handleChangeLog = (e, id, arg) => {
+    console.log('arg', arg);
     const newArray = this.state.args.map(array => {
       if ([id].includes(array.id)) {
         return { ...array, logVar: e.target.value }
       }
       return array
     })
-    console.log(newArray);
-    this.setState({ args: newArray });
+
+    const newArrayTwo = this.state.argsTwo.map(arrayTwo => {
+      if ([arg].includes(arrayTwo.arg)) {
+        return { ...arrayTwo, logVar: e.target.value }
+      }
+      else
+        // console.log('arrayTwo', arrayTwo);
+        return arrayTwo
+    })
+    // console.log(newArray);
+    this.setState({ args: newArray, argsTwo: newArrayTwo });
   };
 
   handleAddVar = (elem) => {
@@ -78,7 +89,7 @@ class App extends React.Component {
 
     this.setState({
       argsTwo: filteredArray,
-    }, () => { console.log('wartość tablicy OK:', this.state.tasks) });
+    }, () => { console.log('wartość tablicy OK:', this.state.argsTwo) });
   }
 
   render() {
@@ -119,14 +130,14 @@ class App extends React.Component {
         <div className="app-board">
           {this.state.args.map((item, index, args) => (
             <Argument key={item.id}
-            state={this.state} 
-            options={this.props.options} 
-            handleChangeName={(e) => this.handleChangeName(e, item.id)} 
-            handleChange={(e)=> this.handleChange(e)}
-            handleChangeLog={(e) => this.handleChangeLog(e, item.id)}
-            item={item}
-            value={this.state.args[index].arg} 
-            {...item} />
+              state={this.state}
+              options={this.props.options}
+              handleChangeName={(e) => this.handleChangeName(e, item.id)}
+              handleChange={(e) => this.handleChange(e)}
+              handleChangeLog={(e) => this.handleChangeLog(e, item.id, item.arg)}
+              item={item}
+              value={this.state.args[index].arg}
+              {...item} />
           ))}
         </div>
         <button onClick={e => {
@@ -136,28 +147,37 @@ class App extends React.Component {
           this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
         {/* <div className="divSelectVar"> */}
-          <Select inputText={this.state.inputText} state={this.state} handleChange={(e) => {
-            this.setState({ inputText: e.target.value, logicOperator: e.target.value })
-          }} handleClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })}/>
+        <Select inputText={this.state.inputText} state={this.state} handleChange={(e) => {
+          this.setState({ inputText: e.target.value, logicOperator: e.target.value })
+        }} handleClick={(e) => this.setState({ selectOption: 'selected', inputText: 'Select...' })} />
 
-          {this.state.logicOperator === 'and' || this.state.logicOperator === 'or' ? (
-            <div className="divSelectVar2">
-              {this.state.argsTwo.map(itemTwo => (
-                <Select key={itemTwo.id} inputText={this.state.logicOperator1} state={this.state} handleChange={(e) => this.handleChangeNameTwo(e, itemTwo.id)}
+        {this.state.logicOperator === 'and' || this.state.logicOperator === 'or' ? (
+          <div className="divSelectVar2">
+            {this.state.argsTwo.map(itemTwo => (
+              <Select key={itemTwo.id} inputText={this.state.logicOperator1} state={this.state} handleChange={(e) => {
+                this.handleChangeNameTwo(e, itemTwo.id);
+                // if (e.target.value === 'and' || e.target.value === 'or') {
+                //   this.handleChangeNameTwo(e, itemTwo.id);
+                // this.setState({
+                //   argsTwo: [...this.state.argsTwo, { id: randomID(4) }, { id: randomID(4) }]
+                // })
+                // }
+              }
+              }
                 //   (e) => {
                 //   this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
                 // }} 
-                handleClick={e => this.removeSelect(itemTwo.id) }/>
-              ))}
-              < button onClick={e => this.setState({
-                argsTwo: [...this.state.argsTwo, { id: randomID(4) }]
-              })
-              }> + add op</button>
-            </div>
-          )
-            : ''
-          }
-          <div className="result">Result {x()}</div>
+                handleClick={e => this.removeSelect(itemTwo.id)} />
+            ))}
+            < button onClick={e => this.setState({
+              argsTwo: [...this.state.argsTwo, { id: randomID(4) }]
+            })
+            }> + add op</button>
+          </div>
+        )
+          : ''
+        }
+        <div className="result">Result {x()}</div>
         {/* </div > */}
       </div >
     );
