@@ -42,12 +42,18 @@ class App extends React.Component {
   };
 
   handleChangeNameTwo = (e, id) => {
-
+    console.log(e.target.value);
     let firstArg = this.state.args.find(array => array.arg === e.target.value);
     // console.log('check', firstArg.logVar);
     const newArray = this.state.argsTwo.map(array => {
-      if ([id].includes(array.id)) {
+      if ([id].includes(array.id) && e.target.value !== 'and' && e.target.value !== 'or' && e.target.value !== 'true' && e.target.value !== 'false') {
         return { ...array, arg: e.target.value, logVar: firstArg.logVar }
+      }
+      if ([id].includes(array.id) && (e.target.value === 'and' || e.target.value === 'or')) {
+        return { ...array, arg: e.target.value }
+      }
+      if ([id].includes(array.id) && ( e.target.value === 'true' || e.target.value === 'false')) {
+        return { ...array, logVar: e.target.value }
       }
       return array
     })
@@ -56,7 +62,7 @@ class App extends React.Component {
   };
 
   handleChangeLog = (e, id, arg) => {
-    console.log('arg', arg);
+    // console.log('arg', arg);
     const newArray = this.state.args.map(array => {
       if ([id].includes(array.id)) {
         return { ...array, logVar: e.target.value }
@@ -114,7 +120,30 @@ class App extends React.Component {
 
     let x = () => {
       let z = '';// eslint-disable-next-line
-      if (this.state.inputText == 'Select...' || this.state.inputText == '') return z = 'undefined';// eslint-disable-next-line
+      if (this.state.logicOperator == 'and') {
+        let check = this.state.argsTwo.map(elem => elem.logVar);
+        if (check.length !== 0) {
+          let test = check.reduce(function (prev, curr) {
+            return prev && curr;
+          })
+          return test;
+        }
+        console.log(check);
+        // console.log(test);
+        return 'undefined';
+      }
+      if (this.state.logicOperator === 'or') {
+        let check = this.state.argsTwo.map(elem => elem.logVar);
+        if (check.length !== 0) {
+          let test = check.reduce(function (prev, curr) {
+            return prev || curr;
+          })
+          return test;
+        }
+        console.log(test);
+        return 'undefined';
+      }
+      if (this.state.inputText === 'Select...' || this.state.inputText === '') return z = 'undefined';// eslint-disable-next-line
       if (this.state.inputText == 'true') return z = 'true';// eslint-disable-next-line
       if (this.state.inputText == 'false') return z = 'false';
       else this.state.args.map(item => {
@@ -128,7 +157,7 @@ class App extends React.Component {
     return (
       <div className="app" >
         <div className="app-board">
-          {this.state.args.map((item, index, args) => (
+          {this.state.args.map((item, index) => (
             <Argument key={item.id}
               state={this.state}
               options={this.props.options}
@@ -157,16 +186,12 @@ class App extends React.Component {
               <Select key={itemTwo.id} inputText={this.state.logicOperator1} state={this.state} handleChange={(e) => {
                 this.handleChangeNameTwo(e, itemTwo.id);
                 // if (e.target.value === 'and' || e.target.value === 'or') {
-                //   this.handleChangeNameTwo(e, itemTwo.id);
-                // this.setState({
-                //   argsTwo: [...this.state.argsTwo, { id: randomID(4) }, { id: randomID(4) }]
-                // })
+                //   this.setState({
+                //     argsTwo: [...this.state.argsTwo, { id: randomID(4) }, { id: randomID(4) }]
+                //   })
                 // }
               }
               }
-                //   (e) => {
-                //   this.setState({ inputText1: e.target.value, logicOperator1: e.target.value })
-                // }} 
                 handleClick={e => this.removeSelect(itemTwo.id)} />
             ))}
             < button onClick={e => this.setState({
