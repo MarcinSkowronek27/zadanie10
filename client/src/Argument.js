@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Component = ({ index, value, options, handleChangeName, handleChange, handleChangeLog }) => {
+const Component = ({ index, value, options, handleChangeArg, handleChangeValue, handleChangeLogicItem }) => {
 
 
   return (
     <div>
       <input
         autoComplete="off"
-        onChange={(e) => handleChangeName(e)}
+        onChange={(e) => handleChangeArg(e)}
         value={value}
       />
       <select name="logic" id={`logic${index}`} onChange={(e) => {
-        handleChange(e);
-        handleChangeLog(e);
+        handleChangeValue(e);
+        handleChangeLogicItem(e);
       }}>
         {options.map((arrayItem, index) => (
           <option key={index} value={arrayItem}>
@@ -30,9 +30,9 @@ Component.propTypes = {
   value: PropTypes.node,
   index: PropTypes.string,
   options: PropTypes.array,
-  handleChangeName: PropTypes.func,
-  handleChange: PropTypes.func,
-  handleChangeLog: PropTypes.func,
+  handleChangeArg: PropTypes.func,
+  handleChangeValue: PropTypes.func,
+  handleChangeLogicItem: PropTypes.func,
 };
 
 export {

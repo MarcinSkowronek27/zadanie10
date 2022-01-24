@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Component = ({ state, handleClick, handleChange, inputText }) => {
+const Component = ({ state, handleClick, handleChangeArg, inputText }) => {
 
   return (
     <div className='divSelectVar'>
-      <select className="selectVar" value={inputText} onChange={e => handleChange(e)}>
+      <select className="selectVar" value={inputText} onChange={e => handleChangeArg(e)}>
             <option key={0} value=''
             >Select...</option>
             <optgroup id='argument' label='argument'>
@@ -38,7 +38,7 @@ const Component = ({ state, handleClick, handleChange, inputText }) => {
 Component.propTypes = {
   state: PropTypes.object,
   inputText: PropTypes.string,
-  handleChange: PropTypes.func,
+  handleChangeArg: PropTypes.func,
   handleChangeLog: PropTypes.func,
 };
 
