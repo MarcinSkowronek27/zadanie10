@@ -136,7 +136,6 @@ class App extends React.Component {
         <button onClick={e => {
           e.preventDefault();
           let id = randomID(4);
-          console.log(e.target.value);
           this.handleAddVar({ id: id, arg: 'newarg', logVar: "true" });
         }} >+ add arg</button>
         <Select inputText={this.state.inputText} state={this.state} handleChangeArg={(e) => {
